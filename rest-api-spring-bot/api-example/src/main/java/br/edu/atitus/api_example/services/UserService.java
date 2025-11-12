@@ -40,7 +40,8 @@ public class UserService implements UserDetailsService {
 		if (user.getPassword() == null || user.getPassword().isEmpty() || user.getPassword().length() < 8) {
 			throw new Exception("Senha inválida.");
 		}
-		user.setPassword(enconder.encode(user.getPassword()));
+		
+		user.setPassword(enconder.encode(user.getPassword())); //Pega senha com texto puro, codifica e coloca como "nova' senha.
 		
 		if (repository.exixtsByEmail(user.getEmail()))
 			throw new Exception ("Já existe usuário cadastrado com este email.");
