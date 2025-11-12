@@ -10,10 +10,10 @@ import br.edu.atitus.api_example.entities.UserEntity;
 public interface UserRepository  extends JpaRepository<UserEntity, UUID>{
 	
 	// Basicamente um comando SQL sendo o comando select * from tb_user where email
-	boolean exixtsByEmail(String email);
+	boolean existsByEmail(String email);
 	
 	// Basicamente um comando SQL sendo o comando select * from tb_user where email = {} and name = {}
-	boolean exixtsByAndEmail(String email, String name);
+	boolean existsByAndEmail(String email, String name);
 		
 	Optional<UserEntity> findByEmail(String email);
 

@@ -31,8 +31,8 @@ public class PointEntity {
 	@Column(columnDefinition = "decimal(17,14)", nullable = false)
 	private double longetitude;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "iduser")
+	@ManyToOne(fetch = FetchType.LAZY)
 	private UserEntity user;
 	
 	

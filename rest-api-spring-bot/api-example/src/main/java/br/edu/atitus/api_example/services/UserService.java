@@ -43,7 +43,7 @@ public class UserService implements UserDetailsService {
 		
 		user.setPassword(enconder.encode(user.getPassword())); //Pega senha com texto puro, codifica e coloca como "nova' senha.
 		
-		if (repository.exixtsByEmail(user.getEmail()))
+		if (repository.existsByEmail(user.getEmail()))
 			throw new Exception ("Já existe usuário cadastrado com este email.");
 		
 		repository.save(user);

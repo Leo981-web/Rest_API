@@ -22,7 +22,7 @@ import br.edu.atitus.api_example.services.UserService;
 @RequestMapping("/auth")
 public class AuthController {
 	
-	//AuthControler Depende de um objeto UserService:
+	//AuthController Depende de um objeto UserService:
 	private final UserService service;
 	private final AuthenticationConfiguration authConfig;
 	
@@ -52,7 +52,7 @@ public class AuthController {
 		return ResponseEntity.ok(jwt);
 	}
 	
-	@ExceptionHandler
+	@ExceptionHandler(Exception.class)
 	public ResponseEntity<String> exceptionHandler(Exception e){
 		String message = e.getMessage().replaceAll("\r\n","");
 		return ResponseEntity.badRequest().body(message);
