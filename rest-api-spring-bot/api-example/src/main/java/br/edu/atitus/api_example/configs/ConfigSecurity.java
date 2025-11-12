@@ -2,12 +2,13 @@ package br.edu.atitus.api_example.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class ConfigSecurity {
 	
 	@Bean
-	ScurityFilterChain getSecurityFilter(HttpSecurity http) throws Exception {
+	SecurityFilterChain getSecurityFilter(HttpSecurity http) throws Exception {
 		http.sessionManagement(session -> session
 				.sessionCreationPolicy(SessionCrationPolicy.STATELESS)) // Desabilita seções
 		.csrf(csrf -> csrf.disable))// cdsabilita proteção CSRF

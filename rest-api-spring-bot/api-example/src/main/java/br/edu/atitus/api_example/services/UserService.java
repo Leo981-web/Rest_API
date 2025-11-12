@@ -1,5 +1,6 @@
 package br.edu.atitus.api_example.services;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.edu.atitus.api_example.entities.UserEntity;
@@ -10,9 +11,9 @@ public class UserService {
 	
 	private final UserRepository repository;
 	
-	private final PasswordEnconder enconder;
+	private final PasswordEncoder enconder;
 	
-	public UserService(UserRepository repository, PasswordEnconder enconder) {
+	public UserService(UserRepository repository, PasswordEncoder enconder) {
 		super();
 		this.repository = repository;
 		this,enconder = enconder;
@@ -38,7 +39,7 @@ public class UserService {
 		if (user.getPassword() == null || user.getPassword().isEmpty() || user.getPassword().length() < 8) {
 			throw new Exception("Senha inválida");
 		}
-		user.setPassword(enconder.enconde(user.getPassword()));
+		user.setPassword(enconder.encode(user.getPassword()));
 		
 		if (repository.exixtsByEmail(user.getEmail()))
 			throw new Exception ("Já existe usuário ja cadastrado com este email");
