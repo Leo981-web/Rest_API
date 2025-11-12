@@ -1,5 +1,5 @@
 # API REST com Spring Boot ★
-Este é um projeto de API REST desenvolvido em Java, utilizando o Spring Boot, e testada via Postman.
+Este é um projeto de **fins didáticos** de API REST desenvolvido em *Java*, utilizando o Spring Boot, e testada via Postman.
 
 ## Tecnologias Utilizadas: ♬
 - Java 21;
