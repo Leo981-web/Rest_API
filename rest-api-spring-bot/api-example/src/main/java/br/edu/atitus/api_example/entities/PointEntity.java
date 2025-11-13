@@ -29,10 +29,10 @@ public class PointEntity {
 	private double latitude;
 	
 	@Column(columnDefinition = "decimal(17,14)", nullable = false)
-	private double longetitude;
+	private double longitude;
 	
-	@JoinColumn(name = "iduser")
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_user")
 	private UserEntity user;
 	
 	
@@ -60,12 +60,12 @@ public class PointEntity {
 		this.latitude = latitude;
 	}
 
-	public double getLongetitude() {
-		return longetitude;
+	public double getLongitude() {
+		return longitude;
 	}
 
-	public void setLongetitude(double longetitude) {
-		this.longetitude = longetitude;
+	public void setLongitude(double longetitude) {
+		this.longitude = longetitude;
 	}
 
 	public UserEntity getUser() {

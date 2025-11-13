@@ -26,20 +26,10 @@ public class UserService implements UserDetailsService {
 		if (user == null) {
 			throw new Exception("Objeto Nulo.");
 		}
-		
-		if (user.getName() == null || user.getName().isEmpty()) {
-			throw new Exception("Nome inválido.");
-		}
+	
 		user.setName(user.getName().trim());
 		
-		if (user.getEmail() == null || user.getEmail().isEmpty()) {
-			throw new Exception("Email inválido.");
-		}
-		user.setName(user.getEmail().trim());
-		
-		if (user.getPassword() == null || user.getPassword().isEmpty() || user.getPassword().length() < 8) {
-			throw new Exception("Senha inválida.");
-		}
+		user.setEmail(user.getEmail().trim());
 		
 		user.setPassword(enconder.encode(user.getPassword())); //Pega senha com texto puro, codifica e coloca como "nova' senha.
 		

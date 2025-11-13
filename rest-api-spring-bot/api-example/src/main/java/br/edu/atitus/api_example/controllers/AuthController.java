@@ -17,6 +17,7 @@ import br.edu.atitus.api_example.dtos.SigninDTO;
 import br.edu.atitus.api_example.entities.TypeUser;
 import br.edu.atitus.api_example.entities.UserEntity;
 import br.edu.atitus.api_example.services.UserService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
@@ -34,7 +35,7 @@ public class AuthController {
 	}
 	
 	@PostMapping("/signup")
-	public ResponseEntity<UserEntity> postSignup(@RequestBody SignupDTO dto) throws Exception{
+	public ResponseEntity<UserEntity> postSignup(@Valid @RequestBody SignupDTO dto) throws Exception{
 		UserEntity user = new UserEntity();
 		BeanUtils.copyProperties(dto, user);
 		user.setType(TypeUser.Common);
