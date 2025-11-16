@@ -1,10 +1,16 @@
 package br.edu.atitus.api_example.services;
 
+import java.text.CollationElementIterator;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+import org.hibernate.sql.ast.tree.expression.Collation;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import br.edu.atitus.api_example.dtos.PointResponseDTO;
 import br.edu.atitus.api_example.entities.PointEntity;
 import br.edu.atitus.api_example.entities.UserEntity;
 import br.edu.atitus.api_example.repositories.PointRepository;
@@ -54,8 +60,19 @@ public class PointService {
 	}
 	
 	@Transactional
-	public java.util.List<PointEntity> findAll(){
-		return repository.findAll();
+	public java.util.List<PointResponseDTO> findAll(){
+		UserEntity userAuth = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<PointEntity> pointsList = repository.findByUser(userAuth);
+		
+		return pointsList.stream()
+				.map(point -> new PointResponseDTO(
+						point.getId(),
+						point.getDescription(),
+						point.getLatitude(),
+						point.getLongitude(),
+						point.getUser().getId()
+						))
+						.collect(Collectors.toList());
 	}
 }
 

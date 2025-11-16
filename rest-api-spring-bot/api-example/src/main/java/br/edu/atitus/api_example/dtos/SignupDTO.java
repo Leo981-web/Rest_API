@@ -22,5 +22,4 @@ public record SignupDTO(
 		@Size(min = 6, message = "A Senha deve conter pelo menos 6 caracteres")
 		String password) {
 	
-	
 }

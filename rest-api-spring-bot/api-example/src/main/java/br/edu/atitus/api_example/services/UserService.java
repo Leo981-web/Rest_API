@@ -28,9 +28,7 @@ public class UserService implements UserDetailsService {
 		}
 	
 		user.setName(user.getName().trim());
-		
 		user.setEmail(user.getEmail().trim());
-		
 		user.setPassword(enconder.encode(user.getPassword())); //Pega senha com texto puro, codifica e coloca como "nova' senha.
 		
 		if (repository.existsByEmail(user.getEmail()))
