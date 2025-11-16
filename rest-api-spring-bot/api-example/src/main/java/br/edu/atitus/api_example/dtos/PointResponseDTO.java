@@ -8,7 +8,8 @@ public record PointResponseDTO(
 		String descrption,
 		double latitude, 
 	    double longitude, 
-	    UUID userId
+	    UUID userId,
+	    boolean favorite
 		) {
 	
 }

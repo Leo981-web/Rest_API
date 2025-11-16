@@ -24,6 +24,9 @@ public class PointEntity {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 	
+	@Column(nullable = false)
+	private boolean favorite;
+
 	@Column(length = 250, nullable = false)
 	private String description;
 	
@@ -37,6 +40,15 @@ public class PointEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_user")
 	private UserEntity user;
+	
+	
+	public boolean isFavorite() {
+		return favorite;
+	}
+
+	public void setFavorite(boolean favorite) {
+		this.favorite = favorite;
+	}
 	
 	
 	public UUID getId() {

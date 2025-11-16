@@ -44,6 +44,20 @@ public class PointController {
 		return ResponseEntity.status(201).body(point);
 	}
 	
+	@PostMapping("/{id}/favorite")
+	public ResponseEntity<PointResponseDTO> favoritePoint(@PathVariable UUID id) throws Exception{
+		
+		PointResponseDTO updatedPoint = service.setFavoriteStatus(id, true);
+		return ResponseEntity.ok(updatedPoint);
+	}
+	
+	@PostMapping("/{id}/unfavorite")
+	public ResponseEntity<PointResponseDTO> unfavoritePoint(@PathVariable UUID id) throws Exception {
+      
+        PointResponseDTO updatedPoint = service.setFavoriteStatus(id, false);
+        return ResponseEntity.ok(updatedPoint);
+    }
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable UUID id) throws Exception{
 		service.deleteById(id);

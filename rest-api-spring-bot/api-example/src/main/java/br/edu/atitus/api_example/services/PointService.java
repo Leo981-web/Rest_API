@@ -59,20 +59,39 @@ public class PointService {
 		repository.deleteById(id);
 	}
 	
+	private PointResponseDTO convertToDTO(PointEntity point) {
+		return new PointResponseDTO(
+					point.getId(),
+					point.getDescription(),
+					point.getLatitude(),
+					point.getLongitude(),
+					point.getUser().getId(),
+					point.isFavorite()
+				);
+	}
+	
 	@Transactional
 	public java.util.List<PointResponseDTO> findAll(){
 		UserEntity userAuth = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<PointEntity> pointsList = repository.findByUser(userAuth);
 		
 		return pointsList.stream()
-				.map(point -> new PointResponseDTO(
-						point.getId(),
-						point.getDescription(),
-						point.getLatitude(),
-						point.getLongitude(),
-						point.getUser().getId()
-						))
-						.collect(Collectors.toList());
+				.map(this::convertToDTO)
+				.collect(Collectors.toList());				
+	}
+	
+	@Transactional
+	public PointResponseDTO setFavoriteStatus(UUID pointId, boolean isFavorite) throws Exception {
+		UserEntity userAuth = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		PointEntity point = repository.findByIdAndUser(pointId, userAuth)
+				.orElseThrow(() -> new Exception("Ponto não Encontrado ou não Pertence a este usuário"));
+		
+		point.setFavorite(isFavorite);
+		
+		PointEntity savedPoint = repository.save(point);
+		
+		return convertToDTO(savedPoint);
 	}
 }
 
