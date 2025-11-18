@@ -2,8 +2,6 @@ package br.edu.atitus.api_example.entities;
 
 import java.util.UUID;
 
-import org.hibernate.annotations.ManyToAny;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;

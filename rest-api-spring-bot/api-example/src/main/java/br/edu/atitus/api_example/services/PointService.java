@@ -83,5 +83,18 @@ public class PointService {
 		
 		return convertToDTO(savedPoint);
 	}
+	
+	public PointEntity update(UUID id, PointDTO dto) throws Exception {
+	    PointEntity entity = repository.findById(id)
+	            .orElseThrow(() -> new Exception("Ponto não encontrado"));
+	    UserEntity userAuth = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    if (!entity.getUser().getId().equals(userAuth.getId())) {
+	        throw new Exception("Você não tem permissão para alterar este ponto.");
+	    }
+	    entity.setLatitude(dto.getLatitude());
+	    entity.setLongitude(dto.getLongitude());
+	    entity.setDescription(dto.getDescription());
+	    return repository.save(entity);
+	}
 }
 
