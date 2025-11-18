@@ -1,6 +1,7 @@
 package br.edu.atitus.api_example.services;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -44,6 +45,15 @@ public class UserService implements UserDetailsService {
         if (repository.existsByEmail(user.getEmail()))
             throw new Exception("Já existe usuário cadastrado com este e-mail");
         
+        if(user.getPhoneNumber() == null || !user.getPhoneNumber().matches("^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\-?[0-9]{4}$"))
+        	throw new Exception("Telefone inválido. Use o formato (XX)9XXXX-XXXX ou similar");
+        
+        if (user.getBirthDate() == null)
+        	throw new Exception("Data de nascimento obrigatória");
+        
+        if (user.getBirthDate().isAfter(java.time.LocalDate.now().minusYears(10))) 
+            throw new Exception("Usuário deve ter no mínimo 10 anos de idade");
+        
         repository.save(user);
         
         return user;
@@ -57,5 +67,23 @@ public class UserService implements UserDetailsService {
 					
 			return user;
 		}
+		
+		public void updatePassword(String currentPassword, String newPassword) throws Exception {
+        	UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        	
+        	UserEntity userFromBD = repository.findById(user.getId())
+        			.orElseThrow(() -> new Exception("Usuario não encontrado"));
+        	
+        	if(!enconder.matches(currentPassword, userFromBD.getPassword())) 
+        		throw new Exception("A senha atual está incorreta");
+        	
+        	
+        	if (!newPassword.matches(PASSWORD_REGEX)) 
+                throw new Exception("Nova senha inválida. Deve conter letras maiúsculas, minúsculas e números.");
+
+        	
+        	userFromBD.setPassword(enconder.encode(newPassword));
+        	repository.save(userFromBD);
+        }
 
 	}

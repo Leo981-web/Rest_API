@@ -1,11 +1,13 @@
 package br.edu.atitus.api_example.entities;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -35,8 +37,31 @@ public class UserEntity implements UserDetails{
 	@JsonIgnore
 	private String password;
 	
+	@Column(length = 20)
+	private String phoneNumber;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate birthDate;
+	
+
 	@Enumerated(EnumType.ORDINAL)
 	private TypeUser Type;
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(LocalDate birthday) {
+		this.birthDate = birthday;
+	}
 
 	public UUID getId() {
 		return id;
