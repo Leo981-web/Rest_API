@@ -64,7 +64,7 @@ public class PointController {
 		return ResponseEntity.ok("Ponto deletado");
 	}
 	
-	@PutMapping("/ws/point/{id}")
+	@PutMapping("{id}")
 	public ResponseEntity<PointEntity> updatePoint(@PathVariable UUID id, @RequestBody PointDTO dto) throws Exception {
 		PointEntity updatedPoint = service.update(id, dto);
 		return ResponseEntity.ok(updatedPoint);
