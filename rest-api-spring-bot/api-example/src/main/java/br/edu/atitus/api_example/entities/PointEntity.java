@@ -22,6 +22,7 @@ public class PointEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@JsonIgnore
 	private UUID id;
 	
 	@Column(nullable = false)
@@ -37,7 +38,7 @@ public class PointEntity {
 	private double longitude;
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_user")
 	private UserEntity user;
 	

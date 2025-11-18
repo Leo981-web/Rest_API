@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.atitus.api_example.dtos.PointDTO;
-import br.edu.atitus.api_example.dtos.PointResponseDTO;
 import br.edu.atitus.api_example.entities.PointEntity;
 import br.edu.atitus.api_example.services.PointService;
 
@@ -31,7 +30,7 @@ public class PointController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<PointResponseDTO>> finAll(){
+	public ResponseEntity<List<PointEntity>> finAll(){
 		var lista = service.findAll();
 		return ResponseEntity.ok(lista);
 	}
@@ -45,16 +44,16 @@ public class PointController {
 	}
 	
 	@PostMapping("/{id}/favorite")
-	public ResponseEntity<PointResponseDTO> favoritePoint(@PathVariable UUID id) throws Exception{
+	public ResponseEntity<PointDTO> favoritePoint(@PathVariable UUID id) throws Exception{
 		
-		PointResponseDTO updatedPoint = service.setFavoriteStatus(id, true);
+		PointDTO updatedPoint = service.setFavoriteStatus(id, true);
 		return ResponseEntity.ok(updatedPoint);
 	}
 	
 	@PostMapping("/{id}/unfavorite")
-	public ResponseEntity<PointResponseDTO> unfavoritePoint(@PathVariable UUID id) throws Exception {
+	public ResponseEntity<PointDTO> unfavoritePoint(@PathVariable UUID id) throws Exception {
       
-        PointResponseDTO updatedPoint = service.setFavoriteStatus(id, false);
+        PointDTO updatedPoint = service.setFavoriteStatus(id, false);
         return ResponseEntity.ok(updatedPoint);
     }
 	

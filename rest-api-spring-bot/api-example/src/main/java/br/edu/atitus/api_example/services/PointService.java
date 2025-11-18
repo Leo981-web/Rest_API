@@ -1,16 +1,11 @@
 package br.edu.atitus.api_example.services;
 
-import java.text.CollationElementIterator;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
-import org.hibernate.sql.ast.tree.expression.Collation;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import br.edu.atitus.api_example.dtos.PointResponseDTO;
+import br.edu.atitus.api_example.dtos.PointDTO;
 import br.edu.atitus.api_example.entities.PointEntity;
 import br.edu.atitus.api_example.entities.UserEntity;
 import br.edu.atitus.api_example.repositories.PointRepository;
@@ -59,29 +54,24 @@ public class PointService {
 		repository.deleteById(id);
 	}
 	
-	private PointResponseDTO convertToDTO(PointEntity point) {
-		return new PointResponseDTO(
-					point.getId(),
-					point.getDescription(),
-					point.getLatitude(),
-					point.getLongitude(),
-					point.getUser().getId(),
-					point.isFavorite()
-				);
+	private PointDTO convertToDTO(PointEntity point) {
+		return new PointDTO(
+				 	point.getLatitude(),
+			        point.getLongitude(),
+			        point.getDescription(),
+			        point.isFavorite()
+			    );				
 	}
 	
 	@Transactional
-	public java.util.List<PointResponseDTO> findAll(){
-		UserEntity userAuth = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		List<PointEntity> pointsList = repository.findByUser(userAuth);
+	public java.util.List<PointEntity> findAll(){
+		List<PointEntity> pointsList = repository.findAll();
 		
-		return pointsList.stream()
-				.map(this::convertToDTO)
-				.collect(Collectors.toList());				
+		return pointsList;		
 	}
 	
 	@Transactional
-	public PointResponseDTO setFavoriteStatus(UUID pointId, boolean isFavorite) throws Exception {
+	public PointDTO setFavoriteStatus(UUID pointId, boolean isFavorite) throws Exception {
 		UserEntity userAuth = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		PointEntity point = repository.findByIdAndUser(pointId, userAuth)
