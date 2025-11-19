@@ -48,6 +48,12 @@ public class UserService implements UserDetailsService {
         if(user.getPhoneNumber() == null || !user.getPhoneNumber().matches("^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\-?[0-9]{4}$"))
         	throw new Exception("Telefone inválido. Use o formato (XX)9XXXX-XXXX ou similar");
         
+        if (user.getPhoneNumber() == null || user.getPhoneNumber().isEmpty())
+            throw new Exception("Número de telefone inválido. Campo obrigatório.");
+        
+        if (user.getBirthDate() == null) 
+            throw new Exception("Data de nascimento inválida. Campo obrigatório.");
+        
         if (user.getBirthDate() == null)
         	throw new Exception("Data de nascimento obrigatória");
         
