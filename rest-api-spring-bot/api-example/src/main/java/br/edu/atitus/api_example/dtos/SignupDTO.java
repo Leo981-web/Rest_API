@@ -12,8 +12,6 @@ public record SignupDTO(
 		String email,
 		String password,
 		String phoneNumber,
-		
-		@JsonFormat(pattern = "dd/MM/yyyy")
 		LocalDate birthDate
 
 		) {

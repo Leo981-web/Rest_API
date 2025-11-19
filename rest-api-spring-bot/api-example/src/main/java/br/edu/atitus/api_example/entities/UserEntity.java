@@ -40,7 +40,7 @@ public class UserEntity implements UserDetails{
 	@Column(length = 20)
 	private String phoneNumber;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	
 	private LocalDate birthDate;
 	
 
