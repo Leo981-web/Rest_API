@@ -43,7 +43,10 @@ public class ConfigSecurity {
 
 			@Override
 			public void addCorsMappings(CorsRegistry registry) { //Qualquer site pode fazer requisicoes para essa API, o que nao e seguro em proj maiores.
-				registry.addMapping("/**").allowedOrigins("*"); //Pode se mudar o '*' pela URL do site que tem acesso, caso necessario.
+				registry.addMapping("/**")
+					.allowedOrigins("*") 
+					.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD")
+					.allowedHeaders("*");
 			}
 		};
 	}
