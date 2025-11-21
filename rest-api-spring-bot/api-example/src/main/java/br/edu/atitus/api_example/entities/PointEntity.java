@@ -20,7 +20,7 @@ public class PointEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	@JsonIgnore
+	
 	private UUID id;
 	
 	@Column(nullable = false)
