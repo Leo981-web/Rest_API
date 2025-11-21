@@ -16,7 +16,7 @@ public class UserService implements UserDetailsService {
 	private final UserRepository repository;
 	private final PasswordEncoder enconder;
 	
-	private final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+	private final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}(\\\\.[a-zA-Z]{2,})*$";
 	private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$";
 	
 	public UserService(UserRepository repository, PasswordEncoder enconder) {
